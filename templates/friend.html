@@ -1,15 +1,203 @@
-<!doctype html>
-<html>
-<head><title>Set Challenge</title></head>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Challenge</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at top left,#302b63,transparent 45%),
+                radial-gradient(circle at bottom right,#24243e,transparent 45%),
+                #090916;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 430px;
+            padding: 35px 28px;
+            text-align: center;
+            border-radius: 24px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 25px 60px rgba(0,0,0,.45);
+            animation: appear .7s ease;
+        }
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 34px;
+            background: rgba(255,255,255,.08);
+            box-shadow: 0 0 30px rgba(130,90,255,.35);
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 29px;
+        }
+
+        .subtitle {
+            margin: 10px 0 24px;
+            color: #b9b9c9;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .rule {
+            padding: 15px;
+            margin-bottom: 24px;
+            border-radius: 14px;
+            background: rgba(255,255,255,.05);
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #ddd;
+            font-size: 13px;
+        }
+
+        input {
+            width: 100%;
+            height: 60px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.12);
+            outline: none;
+            background: rgba(0,0,0,.3);
+            color: white;
+            text-align: center;
+            font-size: 28px;
+            letter-spacing: 12px;
+        }
+
+        input:focus {
+            border-color: #8b7cff;
+            box-shadow: 0 0 20px rgba(139,124,255,.25);
+        }
+
+        button {
+            width: 100%;
+            height: 55px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            background: linear-gradient(135deg,#7c5cff,#a855f7);
+            transition: .25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(124,92,255,.35);
+        }
+
+        .warning {
+            margin-top: 20px;
+            color: #888899;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .error {
+            margin-top: 15px;
+            color: #ff7777;
+            font-size: 13px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
 <body>
-<h1>Set the challenge</h1>
-<p>Enter a <b>game code</b>, SAM enter your password😊.</p>
-<p>Rule: 4 digits; two different digits, each appearing twice.</p>
-<form method="post" action="/set-secret">
-<input type="hidden" name="room" value="{{ room }}">
-<input name="code" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autofocus required>
-<button type="submit">Set challenge</button>
-</form>
-{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+
+<div class="card">
+
+    <div class="icon">🔐</div>
+
+    <h1>Set Your Challenge</h1>
+
+    <p class="subtitle">
+        Create a secret code for the guessing challenge.
+    </p>
+
+    <div class="rule">
+        <b>Challenge Rule</b><br>
+        4 digits • 2 different digits • each repeats twice<br><br>
+        Examples: <b>1122</b> · <b>1212</b> · <b>1221</b>
+    </div>
+
+    <form method="post" action="/set-secret">
+
+        <input type="hidden" name="room" value="{{ room }}">
+
+        <label>Enter your challenge code</label>
+
+        <input
+            type="password"
+            name="code"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="••••"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            🚀 Set Challenge
+        </button>
+
+    </form>
+
+    {% if error %}
+        <div class="error">⚠️ {{ error }}</div>
+    {% endif %}
+
+    <div class="warning">
+        Use a game code only. Never enter a real phone,
+        account, or banking password.
+    </div>
+
+</div>
+
 </body>
 </html>
+```
