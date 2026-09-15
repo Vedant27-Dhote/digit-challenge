@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<title>Guess</title>
+<style>
+body { font-family: Arial; max-width: 520px; margin: 50px auto; padding: 20px; }
+.box { display:flex; gap:8px; margin:20px 0; }
+input { width:55px; font-size:30px; text-align:center; }
+button { padding:12px 20px; font-size:16px; }
+#message { font-size:20px; margin-top:20px; }
+</style>
+</head>
+<body>
+<h1>Guess the code 😎</h1>
+<p>Enter one digit for the current position.</p>
+<div id="boxes" class="box">
+<input id="d0" maxlength="1" inputmode="numeric" autofocus>
+<input id="d1" maxlength="1" inputmode="numeric" disabled>
+<input id="d2" maxlength="1" inputmode="numeric" disabled>
+<input id="d3" maxlength="1" inputmode="numeric" disabled>
+</div>
+<button onclick="checkCurrent()">Check digit</button>
+<div id="message"></div>
+
+<script>
+const room = {{ room|tojson }};
+let position = 0;
+
+async function checkCurrent() {
+    const input = document.getElementById("d" + position);
+    const digit = input.value;
+
+    if (!/^\d$/.test(digit)) {
+        document.getElementById("message").textContent = "Enter exactly one digit.";
+        return;
+    }
+
+    const body = new URLSearchParams();
+    body.append("room", room);
+    body.append("position", position);
+    body.append("digit", digit);
+
+    const response = await fetch("/check-digit", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body
+    });
+
+    const result = await response.json();
+
+    if (!result.ok) {
+        document.getElementById("message").textContent = "⚠️ " + result.message;
+        return;
+    }
+
+    if (result.correct) {
+        document.getElementById("message").textContent = "✅ Correct!";
+        input.disabled = true;
+        position++;
+
+        if (position === 4) {
+            document.getElementById("message").textContent =
+                "🎉 You found the complete 4-digit challenge code!";
+            return;
+        }
+
+        document.getElementById("d" + position).disabled = false;
+        document.getElementById("d" + position).focus();
+    } else {
+        document.getElementById("message").textContent = "❌ Wrong. Try another digit.";
+        input.value = "";
+        input.focus();
+    }
+}
+</script>
+</body>
+</html>
