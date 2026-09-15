@@ -1,11 +1,139 @@
-<!doctype html>
-<html>
-<head><title>Challenge</title></head>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-Digit Challenge</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at 15% 20%, #302b63, transparent 40%),
+                radial-gradient(circle at 85% 80%, #24243e, transparent 40%),
+                #090916;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+            padding: 42px 30px;
+            text-align: center;
+            border-radius: 26px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+            animation: appear .7s ease;
+        }
+
+        .logo {
+            width: 85px;
+            height: 85px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 40px;
+            background: rgba(255,255,255,.08);
+            box-shadow: 0 0 35px rgba(139,124,255,.3);
+        }
+
+        h1 {
+            margin-top: 22px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            margin: 12px 0 30px;
+            color: #aaaabc;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background: linear-gradient(135deg,#7c5cff,#a855f7);
+            transition: .25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(124,92,255,.35);
+        }
+
+        .btn.secondary {
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+
+        .footer {
+            margin-top: 28px;
+            color: #777789;
+            font-size: 11px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
 <body>
-<h1>4-Digit Challenge</h1>
-<p>This is a game. Never enter a real phone/device password.</p>
-<p><a href="/friend?room={{ room }}">Friend: set challenge</a></p>
-<p><a href="/guess?room={{ room }}">Vedant: make guesses</a></p>
+
+<div class="card">
+
+    <div class="logo">🔐</div>
+
+    <h1>4-Digit Challenge</h1>
+
+    <p class="subtitle">
+        A simple guessing game.<br>
+        Set a secret challenge code and see if it can be discovered.
+    </p>
+
+    <a class="btn" href="/friend?room={{ room }}">
+        🔑 Set Challenge
+    </a>
+
+    <a class="btn secondary" href="/guess?room={{ room }}">
+        🎯 Start Guessing
+    </a>
+
+    <div class="footer">
+        Made for fun • Challenge code only
+    </div>
+
+</div>
+
 </body>
 </html>
-
+```
